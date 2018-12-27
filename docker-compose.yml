@@ -1,0 +1,22 @@
+version: '3'
+services:
+  registry:
+    image: registry:2
+    container_name: registry
+    expose:
+      - "80"
+    restart: always
+    volumes:
+      - "./auth:/auth"
+      - "./data:/var/lib/registry"
+    environment:
+      REGISTRY_HTTP_ADDR: 0.0.0.0:80
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
+      REGISTRY_AUTH_HTPASSWD_PATH: "/auth/htpasswd"
+    labels:
+      - "traefik.frontend.rule=Host:hub.living.ru"
+networks:
+  default:
+    external:
+      name: registry
