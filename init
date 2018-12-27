@@ -1,5 +1,31 @@
 #!/usr/bin/env bash
 
 # add .env file with DOMAIN_NAME for private docker images registry
+# to start registry service we need external network "registry", ./auth/htpasswd file with user credentials and DOMAIN_NAME in .env file
+docker network create registry \
+	-d bridge \
+	--scope local \
+	--attachable \
+	--label com.docker.compose.network=registry
 
-echo "set up registry domain name and start service if htpasswd file present"
+if [ $1 ]; then
+    echo "DOMAIN_NAME="${1} > ./.env
+fi
+
+if [ ! -f .env ]; then
+    echo "to start service registry, use:"
+    echo
+    echo "      ./init hub.myregistry.com"
+    echo
+    exit 1
+fi
+
+if [ ! -f ./auth/htpasswd ]; then
+    echo "to start service registry, use:"
+    echo
+    echo "      ./adduser username userpassword"
+    echo
+    exit 1
+fi
+
+docker-compose up -d registry
