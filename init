@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# add .env file with DOMAIN_NAME for private docker images registry
+
+echo "set up registry domain name and start service if htpasswd file present"
