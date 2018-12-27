@@ -23,7 +23,7 @@ fi
 if [ ! -f ./auth/htpasswd ]; then
     echo "to start service registry, use:"
     echo
-    echo "      ./adduser username userpassword"
+    echo "      ./adduser username password"
     echo
     exit 1
 fi
