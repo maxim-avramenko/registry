@@ -4,4 +4,4 @@ if [ ! -f ./auth/htpasswd ]; then
     touch ./auth/htpasswd
 fi
 
-docker run --entrypoint htpasswd registry:2 -Bbn $1 $2 >> auth/htpasswd
+docker run --entrypoint htpasswd httpd:2 -Bbn $1 $2 >> auth/htpasswd
